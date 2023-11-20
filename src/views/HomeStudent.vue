@@ -1,21 +1,39 @@
 <script setup lang="ts">
+import { ref } from "vue";
+import { ApiGet } from "@/utils/CustomAPI";
 import AppCard from "@/components/atoms/cards/AppCard.vue";
-import {ref} from "vue";
+import InputText from "@/components/atoms/inputs/InputText.vue";
 
-const infos = ref({
-  imagem: "https://cdn.vuetifyjs.com/images/john.jpg",
-  titulo: "Docker",
-  descricao: "Você vai aprender como criar, administrar ambientes isolados através de containers com o Docker.",
-  qtdModulos: 4,
-  qtdAulas: 43
-})
+const cursos = ref([])
+const cursoPesquisa = ref("")
+
+const consultarCursos = async () => {
+  const { data, error } = await ApiGet("http://localhost:8080/cursos/select")
+
+  if (error) console.error(error)
+  cursos.value = data
+}
+consultarCursos()
+
 </script>
 
 <template>
   <v-container class="pa-15">
-    <h2>Cursos</h2>
+    <v-row dense>
+      <h2 class="mb-2">Cursos</h2>
+      <v-spacer />
+      <InputText
+        @click="() => console.log('vasco da gama')"
+        :value="cursoPesquisa"
+        label="Pesquisar"
+        icon="mdi-magnify"
+        :cols="3"
+      />
+    </v-row>
 
-    <AppCard :infos="infos"></AppCard>
+    <v-row align="center" justify="center">
+      <AppCard v-for="curso in cursos" :key="curso.id" :cols="4" :infos="curso" />
+    </v-row>
   </v-container>
 </template>
 
