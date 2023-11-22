@@ -1,5 +1,6 @@
 <script setup lang="ts">
-import {computed} from "vue";
+import {computed, ref} from "vue";
+import ApplyMasks from "@/plugins/ApplyMasks";
 
 const props = defineProps<{
   label?: string,
@@ -22,12 +23,38 @@ const emit = defineEmits<{
 
 const text = computed({
   get() {
-    return props.value
+    return types.cpf()
   },
   set(newValue) {
-    emit("input", newValue)
+    if (newValue) {
+      emit("input", newValue)
+    } else {
+      emit("input", '')
+    }
   }
 })
+
+const prependIcon = computed(() => {
+  if (props.type === 'password') {
+    return types.password()
+  }
+  return props.icon
+})
+
+const showPassword = ref(false)
+
+const types = {
+  cpf: () => {
+    return ApplyMasks.ApplyMask(props.value, 'cpf')
+  },
+  password: () => {
+    if (showPassword.value) {
+      return "mdi-eye-off"
+    }
+    return "mdi-eye"
+  }
+}
+
 </script>
 
 <template>
@@ -43,12 +70,13 @@ const text = computed({
       :rules="rules"
       :suffix="suffix"
       :type="type"
-      :append-inner-icon="icon"
+      :append-inner-icon="prependIcon"
       hide-details="auto"
       variant="outlined"
       density="compact"
       clearable
-      @click:append-inner="emit('click')"
+      @click:append-inner="emit('search')"
+      @click:prepend="showPassword = !showPassword"
     />
   </v-col>
 </template>

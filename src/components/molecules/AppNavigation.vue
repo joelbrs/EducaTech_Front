@@ -29,9 +29,17 @@ const $router = useRouter()
     v-model="navigator"
   >
     <v-list density="compact" nav>
-      <v-list-item @click="$router.push({ name: 'Home' })" prepend-icon="mdi-book-open" title="Cursos" value="cursos"></v-list-item>
+      <v-list-item
+        @click="$router.push({ name: 'Home' })"
+        prepend-icon="mdi-book-open"
+        title="Cursos"
+        value="cursos"/>
 
-      <v-list-item prepend-icon="mdi-account" title="Minha Conta" value="shared"></v-list-item>
+      <v-list-item
+        @click="$router.push({ name: 'Account' })"
+        prepend-icon="mdi-account"
+        title="Minha Conta"
+        value="shared"/>
     </v-list>
   </v-navigation-drawer>
 </template>
