@@ -1,5 +1,4 @@
 <script setup>
-import InputText from "@/components/atoms/inputs/InputText.vue";
 import { ref } from "vue"
 import {ApiGet} from "@/utils/CustomAPI";
 import BtnSave from "@/components/atoms/btns/BtnSave.vue";
@@ -13,6 +12,12 @@ const aluno = ref({
   senhaAtual: "",
   senhaNova: "",
   confirmacaoSenha: ""
+})
+
+const senhas = ref({
+  atual: false,
+  nova: false,
+  confirmacao: false
 })
 
 const consultarAluno = async () => {
@@ -36,49 +41,84 @@ consultarAluno()
           <v-col cols="12">
             <p class="text-grey-darken-1">Informações Básicas</p>
           </v-col>
-          <InputText
-            :value="aluno.cpf"
-            :cols="3"
-            type="cpf"
-            label="CPF"
-            disabled
-          />
-          <InputText
-            :value="aluno.nome"
-            :cols="9"
-            label="Nome Completo"
-          />
-          <InputText
-            :value="aluno.email"
-            class="mt-2"
-            :cols="12"
-            label="Email"
-            disabled
-          />
+
+            <v-col cols="3">
+              <v-text-field
+                v-model="aluno.cpf"
+                density="compact"
+                placeholder="CPF"
+                label="CPF"
+                variant="outlined"
+                disabled
+              ></v-text-field>
+            </v-col>
+
+            <v-col cols="9">
+              <v-text-field
+                v-model="aluno.nome"
+                density="compact"
+                placeholder="Nome Completo"
+                label="Nome Completo"
+                variant="outlined"
+              ></v-text-field>
+            </v-col>
+
+            <v-col>
+              <v-text-field
+                class="mt-2"
+                v-model="aluno.email"
+                density="compact"
+                placeholder="Email"
+                label="Email"
+                variant="outlined"
+                disabled
+              ></v-text-field>
+            </v-col>
         </v-row>
 
         <v-row class="mt-5" dense>
           <v-col cols="12">
             <p class="text-grey-darken-1">Alteração de Senha</p>
           </v-col>
-          <InputText
-            :value="aluno.senhaAtual"
-            :cols="4"
-            label="Senha Atual"
-            type="password"
-          />
-          <InputText
-            :value="aluno.senhaNova"
-            :cols="4"
-            label="Senha Nova"
-            type="password"
-          />
-          <InputText
-            :value="aluno.confirmacaoSenha"
-            :cols="4"
-            label="Confirme Sua Senha Nova"
-            type="password"
-          />
+
+          <v-col cols="4">
+            <v-text-field
+              v-model="aluno.senhaAtual"
+              :append-inner-icon="senhas.atual ? 'mdi-eye-off' : 'mdi-eye'"
+              :type="senhas.atual ? 'text' : 'password'"
+              density="compact"
+              placeholder="Senha Atual"
+              label="Senha Atual"
+              variant="outlined"
+              @click:append-inner="senhas.atual = !senhas.atual"
+            ></v-text-field>
+          </v-col>
+
+          <v-col cols="4">
+            <v-text-field
+              v-model="aluno.senhaNova"
+              :append-inner-icon="senhas.nova ? 'mdi-eye-off' : 'mdi-eye'"
+              :type="senhas.nova ? 'text' : 'password'"
+              density="compact"
+              placeholder="Senha Atual"
+              label="Senha Atual"
+              variant="outlined"
+              @click:append-inner="senhas.nova = !senhas.nova"
+            ></v-text-field>
+          </v-col>
+
+          <v-col cols="4">
+            <v-text-field
+              v-model="aluno.confirmacaoSenha"
+              :append-inner-icon="senhas.confirmacao ? 'mdi-eye-off' : 'mdi-eye'"
+              :type="senhas.confirmacao ? 'text' : 'password'"
+              density="compact"
+              placeholder="Confirme sua nova senha"
+              label="Confirme sua nova senha"
+              variant="outlined"
+              @click:append-inner="senhas.confirmacao = !senhas.confirmacao"
+            ></v-text-field>
+          </v-col>
         </v-row>
       </v-card>
 

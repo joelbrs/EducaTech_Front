@@ -2,7 +2,6 @@
 import { ref } from "vue";
 import { ApiGet } from "@/utils/CustomAPI";
 import AppCard from "@/components/atoms/cards/AppCard.vue";
-import InputText from "@/components/atoms/inputs/InputText.vue";
 import {CursoDTOOut} from "@/types/curso";
 
 const cursos = ref([])
@@ -15,6 +14,11 @@ const consultarCursos = async () => {
 
   cursos.value = data
 }
+
+const pesquisarCurso = () => {
+  console.log('pesquisando...')
+}
+
 consultarCursos()
 
 </script>
@@ -24,13 +28,17 @@ consultarCursos()
     <v-row dense>
       <h2 class="mb-2">Cursos</h2>
       <v-spacer />
-      <InputText
-        @search="() => console.log('vasco da gama')"
-        :value="cursoPesquisa"
-        :cols="3"
-        label="Pesquisar"
-        icon="mdi-magnify"
-      />
+      <v-col cols="3">
+        <v-text-field
+          v-model="cursoPesquisa"
+          density="compact"
+          placeholder="Pesquisar"
+          label="Pesquisar"
+          variant="outlined"
+          append-inner-icon="mdi-magnify"
+          @click:append-inner="pesquisarCurso"
+        ></v-text-field>
+      </v-col>
     </v-row>
 
     <v-row align="center" justify="center">
