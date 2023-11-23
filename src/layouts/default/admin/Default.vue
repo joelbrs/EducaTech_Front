@@ -8,6 +8,6 @@
 
 <script lang="ts" setup>
   import DefaultBar from './AppBar.vue'
-  import DefaultView from './View.vue'
-  import DefaultFooter from './AppFooter.vue'
+  import DefaultView from '../View.vue'
+  import DefaultFooter from '../AppFooter.vue'
 </script>

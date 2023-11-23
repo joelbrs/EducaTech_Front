@@ -21,7 +21,7 @@ const cadastrar = async () => {
   const { data, error } = await ApiPost<any>(`http://localhost:8080/usuarios`, aluno.value)
 
   if (error) return console.error(error)
-  await $router.push({name: 'Home', params: {id: (data as any)?.id}})
+  await $router.push({name: 'HomeStudent', params: {id: (data as any)?.id}})
 }
 </script>
 

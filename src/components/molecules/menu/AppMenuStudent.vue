@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import AppNavigation from "@/components/molecules/AppNavigation.vue";
+import AppNavigation from "@/components/molecules/nav/AppNavigationStudent.vue";
 import {ref} from "vue";
 
 const navigator = ref(true)

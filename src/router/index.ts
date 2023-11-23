@@ -8,31 +8,41 @@ const routes = [
     component: () => import('@/views/student/Login.vue')
   },
   {
+    path: '/student/register',
+    name: 'RegisterStudent',
+    component: () => import('@/views/student/Register.vue')
+  },
+  {
+    path: '/admin/login',
+    name: 'LoginAdmin',
+    component: () => import('@/views/admin/Login.vue')
+  },
+  {
     path: '/student',
-    component: () => import('@/layouts/default/Default.vue'),
+    component: () => import('@/layouts/default/student/Default.vue'),
     children: [
       {
-        path: '/main?id=:id',
-        name: 'Home',
-        // route level code-splitting
-        // this generates a separate chunk (Home-[hash].js) for this route
-        // which is lazy-loaded when the route is visited.
+        path: '/student/main?id=:id',
+        name: 'HomeStudent',
         component: () => import('@/views/student/Home.vue'),
       },
       {
-        path: '/account?id=:id',
-        name: 'Account',
-        // route level code-splitting
-        // this generates a separate chunk (Home-[hash].js) for this route
-        // which is lazy-loaded when the route is visited.
+        path: '/student/account?id=:id',
+        name: 'AccountStudent',
         component: () => import('@/views/student/MyAccount.vue'),
       },
     ],
   },
   {
-    path: '/register',
-    name: 'RegisterStudent',
-    component: () => import('@/views/student/Register.vue')
+    path: '/admin',
+    component: () => import('@/layouts/default/admin/Default.vue'),
+    children: [
+      {
+        path: '/admin/main?id=:id',
+        name: 'HomeAdmin',
+        component: () => import('@/views/admin/Home.vue'),
+      },
+    ],
   },
 ]
 
