@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import {computed} from "vue";
-import { useRouter } from "vue-router";
+import { useRouter, useRoute } from "vue-router";
 
 const props = defineProps<{
   value: boolean
@@ -20,7 +20,7 @@ const navigator = computed({
   }
 })
 
-const $router = useRouter()
+const $router = useRouter(), $route = useRoute()
 
 </script>
 
@@ -30,13 +30,13 @@ const $router = useRouter()
   >
     <v-list density="compact" nav>
       <v-list-item
-        @click="$router.push({ name: 'Home' })"
+        @click="$router.push({ name: 'Home', params: { id: $route.params?.id } })"
         prepend-icon="mdi-book-open"
         title="Cursos"
         value="cursos"/>
 
       <v-list-item
-        @click="$router.push({ name: 'Account' })"
+        @click="$router.push({ name: 'Account', params: { id: $route.params?.id }})"
         prepend-icon="mdi-account"
         title="Minha Conta"
         value="shared"/>

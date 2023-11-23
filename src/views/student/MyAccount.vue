@@ -1,7 +1,7 @@
 <script setup>
 import { ref } from "vue"
 import {ApiGet} from "@/utils/CustomAPI";
-import BtnSave from "@/components/atoms/btns/BtnSave.vue";
+import {useRoute} from "vue-router";
 
 const aluno = ref({
   id: "",
@@ -20,8 +20,10 @@ const senhas = ref({
   confirmacao: false
 })
 
+const $route = useRoute()
+
 const consultarAluno = async () => {
-  const { data, error } = await ApiGet(`http://localhost:8080/usuarios/1`)
+  const { data, error } = await ApiGet(`http://localhost:8080/usuarios/${$route.params?.id}`)
 
   if (error) return console.error(error)
   aluno.value = data
@@ -123,7 +125,7 @@ consultarAluno()
       </v-card>
 
       <v-row class="mt-5" justify="end">
-        <BtnSave
+<!--        <BtnSave
           class="mr-3"
           @click="$router.push({ name: 'Home' })"
           text="Cancelar"
@@ -136,7 +138,7 @@ consultarAluno()
           text="Salvar"
           color="black"
           icon="mdi-content-save-all-outline"
-        />
+        />-->
       </v-row>
   </v-container>
 </template>

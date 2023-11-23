@@ -54,14 +54,7 @@ const visible = ref(false)
     </v-btn>
 
     <v-card-text class="text-center">
-      <a
-        class="text-blue text-decoration-none"
-        href="#"
-        rel="noopener noreferrer"
-        target="_blank"
-      >
-        Registre-se agora <v-icon icon="mdi-chevron-right"></v-icon>
-      </a>
+        <router-link :to="{ name: 'RegisterStudent' }">Registre-se agora <v-icon icon="mdi-chevron-right"></v-icon></router-link>
     </v-card-text>
   </v-card>
 </template>
