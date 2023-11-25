@@ -39,8 +39,8 @@ const createBase64Image = (fileObject: File) => {
             v-model="image.nome"
             density="compact"
             variant="outlined"
-            label="Descricao da Imagem"
-            placeholder="Descricao da Imagem"
+            label="Descrição da Imagem"
+            placeholder="Descrição da Imagem"
             clearable
             @click:clear="image = new ImageDTO()"
         />

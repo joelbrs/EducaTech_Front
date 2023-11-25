@@ -25,7 +25,7 @@ const salvar = async () => {
 
   if (error && !data) return console.log(error)
 
-  $router.back()
+  $router.push({ name: "HomeCoursesAdmin" })
 }
 
 const limpar = () => {
@@ -84,6 +84,17 @@ const limpar = () => {
           icon="mdi-content-save-all-outline"
           color="green"
           @click.prevent.stop="salvar"
+      />
+    </v-row>
+
+    <v-row class="mt-2" justify="start" dense>
+      <Btn
+          cols="2"
+          rounded="x"
+          color="grey-lighten-2"
+          text="Voltar"
+          icon="mdi-arrow-left-bottom"
+          @click="$router.push({ name: 'HomeCoursesAdmin' })"
       />
     </v-row>
   </v-container>
