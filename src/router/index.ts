@@ -52,6 +52,11 @@ const routes = [
         name: 'DetalharCoursesAdmin',
         component: () => import('@/views/admin/courses/Detalhar.vue'),
       },
+      {
+        path: '/admin/modules',
+        name: 'HomeModulesAdmin',
+        component: () => import('@/views/admin/modules/Index.vue'),
+      },
     ],
   },
 ]

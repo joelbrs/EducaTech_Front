@@ -36,7 +36,7 @@ const $router = useRouter(), $route = useRoute()
         value="cursos"/>
 
       <v-list-item
-        @click="$router.push({ name: 'Account', params: { id: $route.params?.id }})"
+        @click="$router.push({ name: 'HomeModulesAdmin', params: { id: $route.params?.id }})"
         prepend-icon="mdi-arrow-right-bottom"
         title="Manter Módulos"
         value="shared"/>

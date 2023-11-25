@@ -1,38 +1,44 @@
 <script setup lang="ts">
 defineProps<{
-  label?: string,
-  counter?: boolean,
+  label: string,
+  clearable?: boolean,
   disabled?: boolean,
-  prefix?: string
-  readonly?: boolean
-  rules?: any[],
+  items: any[],
+  itemValue: string,
+  itemTitle: string,
+  prefix?: string,
+  readonly?: boolean,
+  returnObject?: boolean,
+  rules?: (Function | Boolean | String)[],
   suffix?: string,
   type?: string,
-  modelValue?: string,
-  cols?: number,
-  icon?: string
+  modelValue?: string | number
+  cols?: number
 }>()
+
 </script>
 
 <template>
   <v-col :cols="cols" :md="cols" sm="12">
-    <v-text-field
+    <v-select
         v-bind="$attrs"
         :value="modelValue"
         :label="label"
-        :counter="counter"
+        :disabled="disabled"
+        :items="items"
+        :item-value="itemValue"
+        :item-title="itemTitle"
         :placeholder="label"
         :prefix="prefix"
-        :readonly="disabled"
+        :readonly="readonly"
+        :return-object="returnObject"
         :rules="rules"
         :suffix="suffix"
         :type="type"
-        :append-inner-icon="icon"
         variant="outlined"
         density="compact"
         clearable
         @input="$emit('update:modelValue', $event.target.value)"
-        @click:append-inner="$emit('click')"
     />
   </v-col>
 </template>
