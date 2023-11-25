@@ -3,6 +3,7 @@ defineProps<{
   headers: any[],
   totalItems: number,
   items: any[],
+  loading?: boolean
 }>()
 
 </script>
@@ -12,6 +13,7 @@ defineProps<{
       :headers="headers"
       :items-length="totalItems"
       :items="items"
+      :loading="loading"
       item-value="name"
   >
     <template

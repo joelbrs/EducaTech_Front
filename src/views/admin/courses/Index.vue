@@ -1,19 +1,22 @@
 <script setup lang="ts">
 import {ref} from "vue";
-import {useRouter} from "vue-router";
 import Btn from "@/components/atoms/btns/Btn.vue";
 import InputText from "@/components/atoms/inputs/InputText.vue";
 import GenericTable from "@/components/molecules/tables/GenericTable.vue";
 import {deleteCursoById, getListarCursos} from "@/services/curso";
 import {CursoDTOOut} from "@/types/curso";
+import {useRouter} from "vue-router";
 
 const filtro = ref({
   titulo: ""
 })
 
+const $router = useRouter()
+
 const table = ref({
   items: [],
   totalItems: 0,
+  loading: false,
   headers: [
     {
       title: 'Título do Curso',
@@ -49,7 +52,7 @@ const table = ref({
 
 const redirecionar = {
   novo: () => {
-    console.log("novo...")
+    $router.push({ name: "CadastrarCoursesAdmin" })
   },
   detalhar: (item: CursoDTOOut) => {
     console.log(item)
@@ -60,7 +63,9 @@ const redirecionar = {
 }
 
 const consultar = async () => {
+  table.value.loading = true
   const { data, error } = await getListarCursos(filtro.value)
+  table.value.loading = false
 
   if (error && !data) return console.log(error)
 
@@ -114,7 +119,7 @@ const limpar = () => {
           color="indigo-darken-4"
           text="Consultar"
           icon="mdi-magnify"
-          @click="consultar"
+          @click.prevent.stop="consultar"
       />
       <Btn
           block
@@ -123,12 +128,14 @@ const limpar = () => {
           text="Novo Registro"
           icon="mdi-playlist-plus"
           color="green"
+          @click="redirecionar.novo()"
       />
     </v-row>
 
     <GenericTable
         v-if="table.totalItems !== 0"
         class="mt-3"
+        :loading="table.loading"
         :headers="table.headers"
         :total-items="table.totalItems"
         :items-per-page="5"

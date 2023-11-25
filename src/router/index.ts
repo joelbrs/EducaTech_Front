@@ -33,14 +33,19 @@ const routes = [
     component: () => import('@/layouts/default/admin/Default.vue'),
     children: [
       {
-        path: '/admin/main?id=:id',
+        path: '/admin/main',
         name: 'HomeAdmin',
         component: () => import('@/views/admin/Home.vue'),
       },
       {
-        path: '/admin/courses?id=:id',
+        path: '/admin/courses',
         name: 'HomeCoursesAdmin',
         component: () => import('@/views/admin/courses/Index.vue'),
+      },
+      {
+        path: '/admin/courses/cadastrar',
+        name: 'CadastrarCoursesAdmin',
+        component: () => import('@/views/admin/courses/Cadastrar.vue'),
       },
     ],
   },

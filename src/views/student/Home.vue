@@ -3,12 +3,13 @@ import { ref } from "vue";
 import { ApiGet } from "@/utils/CustomAPI";
 import AppCard from "@/components/atoms/cards/AppCard.vue";
 import {CursoDTOOut} from "@/types/curso";
+import {getListarCursos} from "@/services/curso";
 
 const cursos = ref([])
 const cursoPesquisa = ref("")
 
 const consultarCursos = async () => {
-  const { data, error } = await ApiGet<CursoDTOOut[]>("http://localhost:8080/cursos/select")
+  const { data, error } = await getListarCursos()
 
   if (error && !data) console.error(error)
 
