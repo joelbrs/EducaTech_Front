@@ -3,6 +3,9 @@ import {ref} from 'vue'
 import {useRouter} from "vue-router";
 import {ApiPost} from "@/utils/CustomAPI";
 import {postCriarAluno} from "@/services/usuario";
+import InputText from "@/components/atoms/inputs/InputText.vue";
+import InputPassword from "@/components/atoms/inputs/InputPassword.vue";
+import Btn from "@/components/atoms/btns/Btn.vue";
 
 const aluno = ref({
   cpf: "",
@@ -10,11 +13,6 @@ const aluno = ref({
   senha: "",
   nome: "",
   senhaNova: ""
-})
-
-const senhas = ref({
-  original: false,
-  confirmacao: false
 })
 
 const $router = useRouter()
@@ -39,36 +37,23 @@ const cadastrar = async () => {
           <p class="text-grey-darken-1">Informações Básicas</p>
         </v-col>
 
-        <v-col cols="3">
-          <v-text-field
+        <InputText
             v-model="aluno.cpf"
-            density="compact"
-            placeholder="CPF"
             label="CPF"
-            variant="outlined"
-          ></v-text-field>
-        </v-col>
+            cols="3"
+        />
 
-        <v-col cols="9">
-          <v-text-field
+        <InputText
             v-model="aluno.nome"
-            density="compact"
-            placeholder="Nome Completo"
             label="Nome Completo"
-            variant="outlined"
-          ></v-text-field>
-        </v-col>
+            cols="9"
+        />
 
-        <v-col>
-          <v-text-field
+        <InputText
             class="mt-2"
             v-model="aluno.email"
-            density="compact"
-            placeholder="Email"
             label="Email"
-            variant="outlined"
-          ></v-text-field>
-        </v-col>
+        />
       </v-row>
 
       <v-row class="mt-5" dense>
@@ -76,44 +61,30 @@ const cadastrar = async () => {
           <p class="text-grey-darken-1">Alteração de Senha</p>
         </v-col>
 
-        <v-col cols="6">
-          <v-text-field
+        <InputPassword
             v-model="aluno.senha"
-            :append-inner-icon="senhas.original ? 'mdi-eye-off' : 'mdi-eye'"
-            :type="senhas.original ? 'text' : 'password'"
-            density="compact"
-            placeholder="Cadastrar senha"
             label="Cadastrar senha"
             variant="outlined"
-            @click:append-inner="senhas.original = !senhas.original"
-          ></v-text-field>
-        </v-col>
-
-        <v-col cols="6">
-          <v-text-field
+            cols="6"
+        />
+        <InputPassword
             v-model="aluno.senhaNova"
-            :append-inner-icon="senhas.confirmacao ? 'mdi-eye-off' : 'mdi-eye'"
-            :type="senhas.confirmacao ? 'text' : 'password'"
-            density="compact"
-            placeholder="Confirmar senha"
             label="Confirmar senha"
             variant="outlined"
-            @click:append-inner="senhas.confirmacao = !senhas.confirmacao"
-          ></v-text-field>
-        </v-col>
+            cols="6"
+        />
       </v-row>
     </v-card>
 
-    <v-btn
-      @click="cadastrar"
-      block
-      class="mt-3"
-      color="blue"
-      size="large"
-      variant="tonal"
-    >
-      Registrar
-    </v-btn>
+    <Btn
+        block
+        text="Registrar"
+        class="mt-3"
+        color="blue"
+        size="large"
+        variant="tonal"
+        @click="cadastrar"
+    />
   </v-container>
 </template>
 
