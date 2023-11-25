@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="ts">
 import {ref} from 'vue'
 import Validations from "@/utils/Validations";
 import {getLogin} from "@/services/usuario";
@@ -14,7 +14,13 @@ const usuario = ref({
 
 const $router = useRouter()
 
+const form = ref<HTMLFormElement>()
+
 const login = async () => {
+  const validate = await form.value?.validate()
+
+  if (!validate.valid) return
+
   const { data, error } = await getLogin({
     email: usuario.value.email,
     senha: usuario.value.password
@@ -39,32 +45,34 @@ const login = async () => {
   >
     <div class="text-subtitle-1 text-medium-emphasis">Login</div>
 
-    <v-row class="mt-2" dense>
-      <InputText
-        v-model="usuario.email"
-        label="Email"
-        suffix="*"
-        :cols="12"
-        :rules="[Validations.RequiredField]"
-      />
+    <v-form ref="form">
+      <v-row class="mt-2" dense>
+        <InputText
+            v-model="usuario.email"
+            label="Email"
+            suffix="*"
+            :cols="12"
+            :rules="[Validations.RequiredField]"
+        />
 
-      <InputPassword
-        v-model="usuario.password"
-        label="Senha"
-        suffix="*"
-        :cols="12"
-        :rules="[Validations.RequiredField]"
-      />
-    </v-row>
+        <InputPassword
+            v-model="usuario.password"
+            label="Senha"
+            suffix="*"
+            :cols="12"
+            :rules="[Validations.RequiredField]"
+        />
+      </v-row>
+    </v-form>
 
     <Btn
-      @click="login"
       block
       text="Login"
       class="mb-2"
       color="blue"
       size="large"
       variant="tonal"
+      @click="login"
     />
 
     <v-card-text class="text-center">

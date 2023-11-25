@@ -14,7 +14,7 @@ const visible = ref(false)
 </script>
 
 <template>
-  <v-col :cols="cols">
+  <v-col :cols="cols" :md="cols" sm="12">
     <v-text-field
       v-bind="$attrs"
       :value="modelValue"

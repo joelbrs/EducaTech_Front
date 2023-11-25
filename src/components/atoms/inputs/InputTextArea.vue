@@ -15,7 +15,7 @@ defineProps<{
 </script>
 
 <template>
-  <v-col :cols="cols">
+  <v-col :cols="cols" :md="cols" sm="12">
     <v-textarea
         v-bind="$attrs"
         :value="modelValue"

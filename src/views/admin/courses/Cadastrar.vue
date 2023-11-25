@@ -7,8 +7,10 @@ import InputImage from "@/components/atoms/inputs/InputImage.vue";
 import {postCriarCurso} from "@/services/curso";
 import {useRouter} from "vue-router";
 import {ImageDTO} from "@/types/GenericTypes";
+import Validations from "@/utils/Validations";
 
 const $router = useRouter()
+const form = ref<HTMLFormElement>()
 
 const item = ref({
   titulo: "",
@@ -18,6 +20,10 @@ const item = ref({
 })
 
 const salvar = async () => {
+  const validate = await form.value?.validate()
+
+  if (!validate.valid) return
+
   const { data, error } = await postCriarCurso({
     ...item.value,
     imagem: item.value.imagem.imagem
@@ -25,7 +31,7 @@ const salvar = async () => {
 
   if (error && !data) return console.log(error)
 
-  $router.push({ name: "HomeCoursesAdmin" })
+  await $router.push({name: "HomeCoursesAdmin"})
 }
 
 const limpar = () => {
@@ -35,6 +41,8 @@ const limpar = () => {
     descricao: "",
     imagem: ""
   }
+
+  form.value?.resetValidation()
 }
 </script>
 
@@ -44,28 +52,32 @@ const limpar = () => {
     <h2 class="mb-2">Novo Curso</h2>
     <v-divider class="mb-5"/>
 
-    <v-row dense>
-      <InputText
-          v-model="item.titulo"
-          label="Título do Curso"
-          suffix="*"
-          cols="9"
-      />
-      <InputText
-          v-model="item.cargaHoraria"
-          label="Carga Horária"
-          cols="3"
-          suffix="*"
-      />
-      <InputTextArea
-          v-model="item.descricao"
-          label="Descrição do Curso"
-          suffix="*"
-      />
-    </v-row>
+    <v-form ref="form">
+      <v-row dense>
+        <InputText
+            v-model="item.titulo"
+            label="Título do Curso"
+            cols="9"
+            suffix="*"
+            :rules="[Validations.RequiredField]"
+        />
+        <InputText
+            v-model="item.cargaHoraria"
+            label="Carga Horária"
+            cols="3"
+            suffix="*"
+            :rules="[Validations.RequiredField]"
+        />
+        <InputTextArea
+            v-model="item.descricao"
+            label="Descrição do Curso"
+            suffix="*"
+            :rules="[Validations.RequiredField]"
+        />
+      </v-row>
+    </v-form>
 
     <InputImage v-model="item.imagem"/>
-
     <v-row class="mt-2" justify="end" dense>
       <Btn
           block

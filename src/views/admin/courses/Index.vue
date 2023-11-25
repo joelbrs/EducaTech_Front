@@ -55,7 +55,7 @@ const redirecionar = {
     $router.push({ name: "CadastrarCoursesAdmin" })
   },
   detalhar: (item: CursoDTOOut) => {
-    console.log(item)
+    $router.push({ name: "DetalharCoursesAdmin", params: { id: item.id } })
   },
   editar: (item: CursoDTOOut) => {
     console.log(item)

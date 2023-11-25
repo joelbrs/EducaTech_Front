@@ -7,6 +7,10 @@ export function getListarCursos(params: Object) {
     return ApiGet<any>(`${base}`, { params: params })
 }
 
+export function getDetalharCurso(id: string) {
+    return ApiGet<CursoDTOOut>(`${base}/${id}`)
+}
+
 export function postCriarCurso(params: CursoDTOIn) {
     return ApiPost<CursoDTOOut>(`${base}`, params)
 }

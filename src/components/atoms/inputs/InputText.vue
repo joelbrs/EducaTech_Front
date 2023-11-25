@@ -15,26 +15,25 @@ defineProps<{
 </script>
 
 <template>
-  <v-col :cols="cols">
+  <v-col :cols="cols" :md="cols" sm="12">
     <v-text-field
-      v-bind="$attrs"
-      :value="modelValue"
-      :label="label"
-      :counter="counter"
-      :disabled="disabled"
-      :placeholder="label"
-      :prefix="prefix"
-      :readonly="readonly"
-      :rules="rules"
-      :suffix="suffix"
-      :type="type"
-      :append-inner-icon="icon"
-      hide-details="auto"
-      variant="outlined"
-      density="compact"
-      clearable
-      @input="$emit('update:modelValue', $event.target.value)"
-      @click:append-inner="$emit('click')"
+        v-bind="$attrs"
+        :value="modelValue"
+        :label="label"
+        :counter="counter"
+        :placeholder="label"
+        :prefix="prefix"
+        :readonly="disabled"
+        :rules="rules"
+        :suffix="suffix"
+        :type="type"
+        :append-inner-icon="icon"
+        hide-details="auto"
+        variant="outlined"
+        density="compact"
+        clearable
+        @input="$emit('update:modelValue', $event.target.value)"
+        @click:append-inner="$emit('click')"
     />
   </v-col>
 </template>

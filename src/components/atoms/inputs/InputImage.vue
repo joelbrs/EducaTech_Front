@@ -34,7 +34,7 @@ const createBase64Image = (fileObject: File) => {
 <template>
   <div class="d-flex">
     <v-row class="mt-2" dense>
-      <v-col cols="10">
+      <v-col cols="10" md="10"  sm="12">
         <v-text-field
             v-model="image.nome"
             density="compact"

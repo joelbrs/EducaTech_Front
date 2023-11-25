@@ -47,6 +47,11 @@ const routes = [
         name: 'CadastrarCoursesAdmin',
         component: () => import('@/views/admin/courses/Cadastrar.vue'),
       },
+      {
+        path: '/admin/courses/detalhar?id=:id',
+        name: 'DetalharCoursesAdmin',
+        component: () => import('@/views/admin/courses/Detalhar.vue'),
+      },
     ],
   },
 ]
