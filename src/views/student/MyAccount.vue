@@ -3,6 +3,7 @@ import { ref } from "vue"
 import {useRoute, useRouter} from "vue-router";
 import Btn from "@/components/atoms/btns/Btn.vue";
 import {getAlunoById, putAtualizarAluno} from "@/services/usuario";
+import InputText from "@/components/atoms/inputs/InputText.vue";
 
 const aluno = ref({
   id: "",
