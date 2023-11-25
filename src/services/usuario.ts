@@ -1,4 +1,4 @@
-import {ApiGet, ApiPost} from "@/utils/CustomAPI";
+import {ApiGet, ApiPost, ApiPut} from "@/utils/CustomAPI";
 import {UsuarioDTOIn, UsuarioDTOOut} from "@/types/usuario";
 
 const base: string = 'http://localhost:8080/usuarios'
@@ -15,6 +15,10 @@ export function getLogin(params: Object) {
 
 export function postCriarAluno(params: UsuarioDTOIn) {
   return ApiPost<any>(`${base}`, params)
+}
+
+export function putAtualizarAluno(id: string, params: UsuarioDTOIn) {
+  return ApiPut<UsuarioDTOOut>(`${base}/${id}`, params)
 }
 
 

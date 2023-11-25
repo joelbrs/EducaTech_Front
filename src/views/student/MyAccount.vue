@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { ref } from "vue"
-import {useRoute} from "vue-router";
+import {useRoute, useRouter} from "vue-router";
 import Btn from "@/components/atoms/btns/Btn.vue";
-import {getAlunoById} from "@/services/usuario";
+import {getAlunoById, putAtualizarAluno} from "@/services/usuario";
 
 const aluno = ref({
   id: "",
@@ -21,6 +21,7 @@ const senhas = ref({
   confirmacao: false
 })
 
+const $router = useRouter()
 const $route = useRoute()
 
 const consultarAluno = async () => {
@@ -31,7 +32,14 @@ const consultarAluno = async () => {
 }
 
 const salvar = async () => {
+  const { data, error } = await putAtualizarAluno($route.params.id as string, aluno.value)
 
+    if (error) return console.log(error)
+    irParaHome()
+}
+
+const irParaHome = () => {
+    $router.push({ name: 'HomeStudent' })
 }
 
 consultarAluno()
@@ -136,7 +144,7 @@ consultarAluno()
           rounded="xs"
           text="Cancelar"
           icon="mdi-cancel"
-          @click="$router.push({ name: 'HomeStudent' })"
+          @click="irParaHome"
         />
         <Btn
           block

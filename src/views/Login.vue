@@ -61,7 +61,7 @@ const login = async () => {
       @click="login"
       block
       text="Login"
-      class="mb-8"
+      class="mb-2"
       color="blue"
       size="large"
       variant="tonal"

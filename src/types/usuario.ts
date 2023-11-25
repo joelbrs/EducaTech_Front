@@ -10,5 +10,6 @@ export interface UsuarioDTOIn {
     cpf: string
     nome: string
     email: string
-    senha: string
+    senhaAtual: string
+    senhaNova: string
 }
