@@ -30,7 +30,7 @@ const $router = useRouter(), $route = useRoute()
   >
     <v-list density="compact" nav>
       <v-list-item
-        @click="$router.push({ name: 'Home', params: { id: $route.params?.id } })"
+        @click="$router.push({ name: 'HomeCoursesAdmin', params: { id: $route.params?.id } })"
         prepend-icon="mdi-arrow-right-bottom"
         title="Manter Cursos"
         value="cursos"/>
@@ -40,7 +40,7 @@ const $router = useRouter(), $route = useRoute()
         prepend-icon="mdi-arrow-right-bottom"
         title="Manter Módulos"
         value="shared"/>
-      
+
       <v-list-item
         @click="$router.push({ name: 'Account', params: { id: $route.params?.id }})"
         prepend-icon="mdi-arrow-right-bottom"

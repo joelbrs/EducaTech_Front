@@ -37,6 +37,11 @@ const routes = [
         name: 'HomeAdmin',
         component: () => import('@/views/admin/Home.vue'),
       },
+      {
+        path: '/admin/courses?id=:id',
+        name: 'HomeCoursesAdmin',
+        component: () => import('@/views/admin/courses/Index.vue'),
+      },
     ],
   },
 ]
