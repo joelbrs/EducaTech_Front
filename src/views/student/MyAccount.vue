@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { ref } from "vue"
 import {useRoute} from "vue-router";
+import Btn from "@/components/atoms/btns/Btn.vue";
 import {getAlunoById} from "@/services/usuario";
 
 const aluno = ref({
@@ -25,8 +26,12 @@ const $route = useRoute()
 const consultarAluno = async () => {
   const { data, error } = await getAlunoById($route.params?.id as string)
 
-  if (error && !data) return console.error(error)
+  if (error) return console.error(error)
   aluno.value = data as any
+}
+
+const salvar = async () => {
+
 }
 
 consultarAluno()
@@ -124,21 +129,24 @@ consultarAluno()
         </v-row>
       </v-card>
 
-      <v-row class="mt-5" justify="end">
-<!--        <BtnSave
-          class="mr-3"
-          @click="$router.push({ name: 'Home' })"
+      <v-row class="mt-2" justify="end" dense>
+        <Btn
+          block
+          cols="3"
+          rounded="xs"
           text="Cancelar"
           icon="mdi-cancel"
-          :plain="true"
+          @click="$router.push({ name: 'HomeStudent' })"
         />
-
-        <BtnSave
-          class="mr-3"
+        <Btn
+          block
+          cols="3"
+          rounded="xs"
           text="Salvar"
-          color="black"
           icon="mdi-content-save-all-outline"
-        />-->
+          color="green"
+          @click="salvar"
+        />
       </v-row>
   </v-container>
 </template>

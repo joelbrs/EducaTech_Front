@@ -9,7 +9,7 @@ const aluno = ref({
   email: "",
   senha: "",
   nome: "",
-  confirmacaoSenha: ""
+  senhaNova: ""
 })
 
 const senhas = ref({
@@ -91,7 +91,7 @@ const cadastrar = async () => {
 
         <v-col cols="6">
           <v-text-field
-            v-model="aluno.confirmacaoSenha"
+            v-model="aluno.senhaNova"
             :append-inner-icon="senhas.confirmacao ? 'mdi-eye-off' : 'mdi-eye'"
             :type="senhas.confirmacao ? 'text' : 'password'"
             density="compact"
