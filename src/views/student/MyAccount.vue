@@ -1,7 +1,7 @@
-<script setup>
+<script setup lang="ts">
 import { ref } from "vue"
-import {ApiGet} from "@/utils/CustomAPI";
 import {useRoute} from "vue-router";
+import {getAlunoById} from "@/services/usuario";
 
 const aluno = ref({
   id: "",
@@ -23,10 +23,10 @@ const senhas = ref({
 const $route = useRoute()
 
 const consultarAluno = async () => {
-  const { data, error } = await ApiGet(`http://localhost:8080/usuarios/${$route.params?.id}`)
+  const { data, error } = await getAlunoById($route.params?.id as string)
 
-  if (error) return console.error(error)
-  aluno.value = data
+  if (error && !data) return console.error(error)
+  aluno.value = data as any
 }
 
 consultarAluno()

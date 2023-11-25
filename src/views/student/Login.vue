@@ -1,6 +1,8 @@
 <script setup>
 import {computed, ref} from 'vue'
 import Validations from "@/utils/Validations";
+import {getLogin} from "@/services/usuario";
+import {useRouter} from "vue-router";
 
 const aluno = ref({
   email: "",
@@ -8,6 +10,21 @@ const aluno = ref({
 })
 
 const visible = ref(false)
+
+const $router = useRouter()
+
+const login = async () => {
+  const { data, error } = await getLogin({
+    email: aluno.value.email,
+    senha: aluno.value.password
+  })
+
+  if (error) console.log(error)
+
+  if (data.tipoUsuario === "ALUNO") {
+    return $router.push({ name: 'HomeStudent', params: { id: data.id } })
+  }
+}
 
 </script>
 
@@ -44,6 +61,7 @@ const visible = ref(false)
     ></v-text-field>
 
     <v-btn
+      @click="login"
       block
       class="mb-8"
       color="blue"

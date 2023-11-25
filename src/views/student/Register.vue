@@ -2,11 +2,13 @@
 import {ref} from 'vue'
 import {useRouter} from "vue-router";
 import {ApiPost} from "@/utils/CustomAPI";
+import {postCriarAluno} from "@/services/usuario";
 
 const aluno = ref({
   cpf: "",
   email: "",
   senha: "",
+  nome: "",
   confirmacaoSenha: ""
 })
 
@@ -18,7 +20,7 @@ const senhas = ref({
 const $router = useRouter()
 
 const cadastrar = async () => {
-  const { data, error } = await ApiPost<any>(`http://localhost:8080/usuarios`, aluno.value)
+  const { data, error } = await postCriarAluno(aluno.value)
 
   if (error) return console.error(error)
   await $router.push({name: 'HomeStudent', params: {id: (data as any)?.id}})
