@@ -37,46 +37,48 @@ const login = async () => {
 </script>
 
 <template>
-  <v-card
-    class="mx-auto pa-12 pb-8 mt-15"
-    elevation="8"
-    max-width="448"
-    rounded="lg"
-  >
-    <div class="text-subtitle-1 text-medium-emphasis">Login</div>
+  <v-container class="mt-15 pa-5">
+    <v-card
+        class="mx-auto pa-12 pb-8 mt-15"
+        elevation="8"
+        max-width="448"
+        rounded="lg"
+    >
+      <div class="text-subtitle-1 text-medium-emphasis">Login</div>
 
-    <v-form ref="form">
-      <v-row class="mt-2" dense>
-        <InputText
-            v-model="usuario.email"
-            label="Email"
-            suffix="*"
-            :cols="12"
-            :rules="[Validations.RequiredField]"
-        />
+      <v-form ref="form">
+        <v-row class="mt-2" dense>
+          <InputText
+              v-model="usuario.email"
+              label="Email"
+              suffix="*"
+              :cols="12"
+              :rules="[Validations.RequiredField]"
+          />
 
-        <InputPassword
-            v-model="usuario.password"
-            label="Senha"
-            suffix="*"
-            :cols="12"
-            :rules="[Validations.RequiredField]"
-        />
-      </v-row>
-    </v-form>
+          <InputPassword
+              v-model="usuario.password"
+              label="Senha"
+              suffix="*"
+              :cols="12"
+              :rules="[Validations.RequiredField]"
+          />
+        </v-row>
+      </v-form>
 
-    <Btn
-      block
-      text="Login"
-      class="mb-2"
-      color="blue"
-      size="large"
-      variant="tonal"
-      @click="login"
-    />
+      <Btn
+          block
+          text="Login"
+          class="mb-2"
+          color="blue"
+          size="large"
+          variant="tonal"
+          @click="login"
+      />
 
-    <v-card-text class="text-center">
-      <router-link :to="{ name: 'RegisterStudent' }">Registre-se agora <v-icon icon="mdi-chevron-right"></v-icon></router-link>
-    </v-card-text>
-  </v-card>
+      <v-card-text class="text-center">
+        <router-link :to="{ name: 'RegisterStudent' }">Registre-se agora <v-icon icon="mdi-chevron-right"></v-icon></router-link>
+      </v-card-text>
+    </v-card>
+  </v-container>
 </template>

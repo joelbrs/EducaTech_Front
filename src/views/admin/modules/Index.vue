@@ -53,7 +53,7 @@ onMounted(() => consultarCursos())
 
 const redirecionar = {
   novo: () => {
-    $router.push({ name: "CadastrarCoursesAdmin" })
+    $router.push({ name: "CadastrarModulesAdmin" })
   },
   detalhar: (item: CursoDTOOut) => {
     $router.push({ name: "DetalharCoursesAdmin", params: { id: item.id } })
@@ -82,7 +82,7 @@ const consultarCursos = async () => {
   cursos.value = data
 }
 
-const excluirCurso = async (item: CursoDTOOut) => {
+const excluirModulo = async (item: CursoDTOOut) => {
   const { data, error } = await deleteModuloById(item.id)
 
   if (error && !data) return console.log(error)
@@ -163,7 +163,7 @@ const limpar = () => {
       <template #[`item.acoes`]="{ item }">
         <v-icon @click="redirecionar.detalhar(item)" size="small" title="Detalhar">mdi-magnify-plus</v-icon>
         <v-icon @click="redirecionar.editar(item)" size="small" title="Editar">mdi-pencil</v-icon>
-        <v-icon @click="excluirCurso(item)" size="small" title="Detalhar">mdi-trash-can-outline</v-icon>
+        <v-icon @click="excluirModulo(item)" size="small" title="Detalhar">mdi-trash-can-outline</v-icon>
       </template>
     </GenericTable>
   </v-container>

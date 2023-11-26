@@ -11,6 +11,10 @@ export function getDetalharModulo(id: string) {
     return ApiGet<CursoDTOOut>(`${base}/${id}`)
 }
 
+export function getProximaOrdem(idCurso: string) {
+    return ApiGet<number>(`${base}/proxima-ordem/${idCurso}`)
+}
+
 export function postCriarModulo(params: CursoDTOIn) {
     return ApiPost<CursoDTOOut>(`${base}`, params)
 }

@@ -57,6 +57,11 @@ const routes = [
         name: 'HomeModulesAdmin',
         component: () => import('@/views/admin/modules/Index.vue'),
       },
+      {
+        path: '/admin/modules/cadastrar',
+        name: 'CadastrarModulesAdmin',
+        component: () => import('@/views/admin/modules/Cadastrar.vue'),
+      },
     ],
   },
 ]
