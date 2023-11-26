@@ -3,7 +3,7 @@ import {CursoDTOIn, CursoDTOOut} from "@/types/curso";
 
 const base: string = 'http://localhost:8080/cursos'
 
-export function getListarCursos(params: Object) {
+export function getListarCursos(params?: Object) {
     return ApiGet<any>(`${base}`, { params: params })
 }
 

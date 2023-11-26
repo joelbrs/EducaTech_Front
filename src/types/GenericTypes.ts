@@ -5,10 +5,7 @@ export class ImageDTO {
     private _file: File | null
     private _imagem: string
 
-    constructor(nome: string, file: File, imagem: string) {
-        this._nome = nome
-        this._file = file
-        this._imagem = imagem
+    constructor() {
     }
 
     get nome(): string {

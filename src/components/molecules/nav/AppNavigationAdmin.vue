@@ -42,7 +42,7 @@ const $router = useRouter(), $route = useRoute()
         value="shared"/>
 
       <v-list-item
-        @click="$router.push({ name: 'Account', params: { id: $route.params?.id }})"
+        @click="$router.push({ name: 'HomeClassesAdmin', params: { id: $route.params?.id }})"
         prepend-icon="mdi-arrow-right-bottom"
         title="Manter Aulas"
         value="shared"/>

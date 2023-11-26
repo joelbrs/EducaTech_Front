@@ -21,7 +21,7 @@ const createBase64Image = (fileObject: File) => {
   reader.onload = (e) => {
     image.value = {
       nome: fileObject.name,
-      imagem: e.target.result.toString(),
+      imagem: e.target?.result.toString(),
       file: fileObject
     }
 
@@ -50,7 +50,7 @@ const createBase64Image = (fileObject: File) => {
           icon="mdi-paperclip"
           text="Anexar Imagem"
           cols="2"
-          @click="uploader.click()"
+          @click.prevent.stop="uploader.click()"
       />
     </v-row>
   </div>

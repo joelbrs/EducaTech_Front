@@ -67,6 +67,16 @@ const routes = [
         name: 'DetalharModulesAdmin',
         component: () => import('@/views/admin/modules/Detalhar.vue'),
       },
+      {
+        path: '/admin/classes',
+        name: 'HomeClassesAdmin',
+        component: () => import('@/views/admin/classes/Index.vue'),
+      },
+      {
+        path: '/admin/classes/cadastrar',
+        name: 'CadastrarClassesAdmin',
+        component: () => import('@/views/admin/classes/Cadastrar.vue'),
+      },
     ],
   },
 ]

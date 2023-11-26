@@ -9,7 +9,7 @@ defineProps<{
   suffix?: string,
   type?: string,
   modelValue?: string,
-  cols?: number,
+  cols?: number | string,
   icon?: string
 }>()
 </script>
