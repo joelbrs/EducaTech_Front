@@ -12,17 +12,38 @@ const item = ref({
   curso: "",
   ordem: "",
   descricao: "",
+  material: {
+    arquivo: "",
+    nome: ""
+  }
 })
 
 onMounted(() => detalharModulo())
 
 const detalharModulo = async () => {
   const $route = useRoute()
-  const { data, error } = await getDetalharModulo($route.params.id)
+  const { data, error } = await getDetalharModulo($route.params.id.toString())
 
   if(error && !data) return console.log(error)
 
-  item.value = { ...data, curso: data.curso.titulo }
+  item.value = { ...data, curso: data?.curso.titulo }
+}
+
+const download = () => {
+  const byteCharacters = atob(item.value.material.arquivo.split(",")[1]);
+  const byteNumbers = new Array(byteCharacters.length);
+
+  for (let i = 0; i < byteCharacters.length; i++) {
+    byteNumbers[i] = byteCharacters.charCodeAt(i);
+  }
+
+  const byteArray = new Uint8Array(byteNumbers);
+  const blob = new Blob([byteArray], { type: 'application/pdf' });
+
+  const link = document.createElement('a');
+  link.href = window.URL.createObjectURL(blob);
+  link.download = item.value.material.nome;
+  link.click();
 }
 
 </script>
@@ -74,6 +95,18 @@ const detalharModulo = async () => {
             disabled
         ></v-textarea>
       </v-col>
+    </v-row>
+
+    <v-row justify="end" dense>
+      <Btn
+          block
+          cols="3"
+          rounded="x"
+          color="indigo"
+          text="Download do Material"
+          icon="mdi-download"
+          @click.prevent.stop="download"
+      />
     </v-row>
 
     <v-row class="mt-2" justify="start" dense>

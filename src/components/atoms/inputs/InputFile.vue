@@ -1,13 +1,31 @@
 <script setup lang="ts">
 import {Ref, ref} from "vue";
 import Btn from "@/components/atoms/btns/Btn.vue";
-import {ImageDTO} from "@/types/GenericTypes";
+
+defineProps({
+  cols: {
+    default: 10
+  }
+})
 
 const $emits = defineEmits<{
   (e: "update:modelValue", value: any):void
 }>()
 
-const image: Ref<ImageDTO> = ref(new ImageDTO())
+const arquivo = ref({
+  nome: "",
+  file: null,
+  arquivo: ""
+})
+
+const limpar = () => {
+  arquivo.value = {
+    nome: "",
+    file: null,
+    arquivo: ""
+  }
+}
+
 const uploader = ref<HTMLDivElement>()
 
 const handleImage = (e: any) => {
@@ -19,13 +37,13 @@ const createBase64Image = (fileObject: File) => {
   const reader = new FileReader()
 
   reader.onload = (e) => {
-    image.value = {
+    arquivo.value = {
       nome: fileObject.name,
-      imagem: e.target?.result.toString(),
+      arquivo: e.target?.result.toString(),
       file: fileObject
     }
 
-    $emits("update:modelValue", image.value)
+    $emits("update:modelValue", arquivo.value)
   }
   reader.readAsDataURL(fileObject)
 }
@@ -34,21 +52,21 @@ const createBase64Image = (fileObject: File) => {
 <template>
   <div class="d-flex">
     <v-row class="mt-2" dense>
-      <v-col cols="10" md="10"  sm="12">
+      <v-col :cols="cols" md="10"  sm="12">
         <v-text-field
-            v-model="image.nome"
+            v-model="arquivo.nome"
             density="compact"
             variant="outlined"
-            label="Descrição da Imagem"
-            placeholder="Descrição da Imagem"
+            label="Descrição do Arquivo"
+            placeholder="Descrição do Arquivo"
             clearable
-            @click:clear="image = new ImageDTO()"
+            @click:clear="limpar"
         />
       </v-col>
       <Btn
           color="primary"
           icon="mdi-paperclip"
-          text="Anexar Imagem"
+          text="Anexar Arquivo"
           cols="2"
           @click.prevent.stop="uploader.click()"
       />

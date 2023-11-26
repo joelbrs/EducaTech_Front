@@ -8,6 +8,7 @@ import {useRouter} from "vue-router";
 import Validations from "@/utils/Validations";
 import SelectField from "@/components/atoms/inputs/SelectField.vue";
 import {getProximaOrdem, postCriarModulo} from "@/services/modulo";
+import InputFile from "@/components/atoms/inputs/InputFile.vue";
 
 const $router = useRouter()
 const form = ref<HTMLFormElement>()
@@ -17,6 +18,11 @@ const item = ref({
   descricao: "",
   curso: "",
   ordem: "",
+  material: {
+    arquivo: "",
+    nome: "",
+    file: ""
+  }
 })
 
 const cursos = ref([])
@@ -56,7 +62,7 @@ const consultarOrdem = async () => {
   const { data, error } = await getProximaOrdem(item.value.curso)
 
   if (error && !data) return console.error(error)
-  item.value.ordem = data
+  item.value.ordem = data as any
 }
 
 const limpar = () => {
@@ -65,6 +71,11 @@ const limpar = () => {
     curso: "",
     ordem: "",
     descricao: "",
+    material: {
+      arquivo: "",
+      nome: "",
+      file: ""
+    }
   }
 
   form.value?.resetValidation()
@@ -113,6 +124,12 @@ const limpar = () => {
             :rules="[Validations.RequiredField]"
         />
       </v-row>
+        <InputFile
+            v-model="item.material"
+            label="Material"
+            suffix="*"
+            :rules="[Validations.RequiredField]"
+        />
     </v-form>
     <v-row class="mt-2" justify="end" dense>
       <Btn
@@ -142,7 +159,7 @@ const limpar = () => {
           color="grey-lighten-2"
           text="Voltar"
           icon="mdi-arrow-left-bottom"
-          @click="$router.push({ name: 'HomeCoursesAdmin' })"
+          @click="$router.push({ name: 'HomeModulesAdmin' })"
       />
     </v-row>
   </v-container>

@@ -3,7 +3,7 @@ import {ref} from "vue"
 import InputText from "@/components/atoms/inputs/InputText.vue";
 import Btn from "@/components/atoms/btns/Btn.vue";
 import InputTextArea from "@/components/atoms/inputs/InputTextArea.vue";
-import InputImage from "@/components/atoms/inputs/InputImage.vue";
+import InputImage from "@/components/atoms/inputs/InputFile.vue";
 import {postCriarCurso} from "@/services/curso";
 import {useRouter} from "vue-router";
 import {ImageDTO} from "@/types/GenericTypes";
@@ -16,7 +16,7 @@ const item = ref({
   titulo: "",
   cargaHoraria: "",
   descricao: "",
-  imagem: new ImageDTO()
+  imagem: null as any
 })
 
 const salvar = async () => {
@@ -26,7 +26,7 @@ const salvar = async () => {
 
   const { data, error } = await postCriarCurso({
     ...item.value,
-    imagem: item.value.imagem.imagem
+    imagem: item.value.imagem.arquivo
   })
 
   if (error && !data) return console.log(error)
@@ -76,7 +76,6 @@ const limpar = () => {
         />
       </v-row>
     </v-form>
-
     <InputImage v-model="item.imagem"/>
     <v-row class="mt-2" justify="end" dense>
       <Btn

@@ -17,11 +17,11 @@ const item = ref({
 
 const detalharCurso = async () => {
   const $route = useRoute()
-  const { data, error } = await getDetalharCurso($route.params.id)
+  const { data, error } = await getDetalharCurso($route.params.id as string)
 
   if(error && !data) return console.log(error)
 
-  item.value = data
+  item.value = data as any
 }
 
 onMounted(() => detalharCurso())
@@ -34,7 +34,10 @@ onMounted(() => detalharCurso())
     <v-divider class="mb-5"/>
 
     <v-row dense>
-      <v-col cols="9">
+      <v-col cols="2">
+        <v-img width="100" :src="item.imagem" />
+      </v-col>
+      <v-col cols="7">
         <v-text-field
             v-model="item.titulo"
             density="compact"
@@ -54,7 +57,8 @@ onMounted(() => detalharCurso())
             disabled
         ></v-text-field>
       </v-col>
-      <v-col cols="6">
+      <v-col cols="2" />
+      <v-col cols="5">
         <v-text-field
             v-model="item.qtdAulas"
             density="compact"
@@ -64,7 +68,7 @@ onMounted(() => detalharCurso())
             disabled
         ></v-text-field>
       </v-col>
-      <v-col cols="6">
+      <v-col cols="5">
         <v-text-field
             v-model="item.qtdModulos"
             density="compact"
@@ -74,7 +78,8 @@ onMounted(() => detalharCurso())
             disabled
         ></v-text-field>
       </v-col>
-      <v-col>
+      <v-col cols="2" />
+      <v-col cols="10">
         <v-textarea
             v-model="item.descricao"
             density="compact"

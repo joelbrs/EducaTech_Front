@@ -7,7 +7,7 @@ export interface CursoDTOOut {
 
 export interface CursoDTOIn {
     titulo: string
-    cargaHoraria: number
+    cargaHoraria: number | string
     imagem: string
 }
 

@@ -83,9 +83,9 @@ const consultarCursos = async () => {
 }
 
 const excluirModulo = async (item: CursoDTOOut) => {
-  const { data, error } = await deleteModuloById(item.id)
+  const { error } = await deleteModuloById(item.id.toString())
 
-  if (error && !data) return console.log(error)
+  if (error) return console.log(error)
 
   await consultar()
 }

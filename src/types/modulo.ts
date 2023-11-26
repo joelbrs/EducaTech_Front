@@ -11,6 +11,10 @@ export interface ModuloDTOOut {
 export interface ModuloDTOIn {
     titulo: string
     descricao: string
-    ordem: number
-    curso: number
+    ordem: number | string
+    curso: number | string
+    material: {
+        arquivo: string,
+        nome: string
+    }
 }

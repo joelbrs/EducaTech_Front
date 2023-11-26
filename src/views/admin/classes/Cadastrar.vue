@@ -175,7 +175,7 @@ const limpar = () => {
           color="grey-lighten-2"
           text="Voltar"
           icon="mdi-arrow-left-bottom"
-          @click="$router.push({ name: 'HomeCoursesAdmin' })"
+          @click="$router.push({ name: 'HomeClassesAdmin' })"
       />
     </v-row>
   </v-container>
