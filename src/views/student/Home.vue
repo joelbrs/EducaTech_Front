@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref, watch, onMounted } from "vue";
-import AppCard from "@/components/atoms/cards/AppCard.vue";
+import AppCard from "@/components/atoms/cards/CourseCard.vue";
 import {getListarCursos} from "@/services/curso";
 import InputText from "@/components/atoms/inputs/InputText.vue";
 
