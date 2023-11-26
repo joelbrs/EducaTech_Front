@@ -62,6 +62,11 @@ const routes = [
         name: 'CadastrarModulesAdmin',
         component: () => import('@/views/admin/modules/Cadastrar.vue'),
       },
+      {
+        path: '/admin/modules/detalhar?id=:id',
+        name: 'DetalharModulesAdmin',
+        component: () => import('@/views/admin/modules/Detalhar.vue'),
+      },
     ],
   },
 ]
