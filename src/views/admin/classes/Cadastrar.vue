@@ -96,7 +96,7 @@ const limpar = () => {
 <template>
   <v-container class="pa-15">
     <p class="text-grey">EducaTech</p>
-    <h2 class="mb-2">Novo Módulo</h2>
+    <h2 class="mb-2">Nova Aula</h2>
     <v-divider class="mb-5"/>
 
     <v-form ref="form">
