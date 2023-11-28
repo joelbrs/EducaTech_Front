@@ -26,6 +26,11 @@ const routes = [
         name: 'AccountStudent',
         component: () => import('@/views/student/MyAccount.vue'),
       },
+      {
+        path: '/student/classes?id=:id&idCourse=:idCourse',
+        name: 'ClassesHomeStudent',
+        component: () => import('@/views/student/ClassesHome.vue'),
+      },
     ],
   },
   {

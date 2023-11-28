@@ -73,7 +73,7 @@ const login = async () => {
           color="blue"
           size="large"
           variant="tonal"
-          @click="login"
+          @click.prevent.stop="login"
       />
 
       <v-card-text class="text-center">

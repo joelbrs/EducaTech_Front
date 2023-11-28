@@ -1,10 +1,11 @@
 <script setup lang="ts">
-import { ref, watch, onMounted } from "vue";
+import {ref, watch, onMounted, Ref} from "vue";
 import AppCard from "@/components/atoms/cards/CourseCard.vue";
 import {getListarCursos} from "@/services/curso";
 import InputText from "@/components/atoms/inputs/InputText.vue";
+import {CursoDTOOut} from "@/types/curso";
 
-const cursos = ref([])
+const cursos: Ref<CursoDTOOut[]> = ref([])
 const filtro = ref({
   titulo: ""
 })
@@ -40,7 +41,12 @@ onMounted(() => consultarCursos())
     </v-row>
 
     <v-row align="center" justify="center">
-      <AppCard v-for="curso in cursos" :key="curso.id" :cols="4" :infos="curso" />
+      <AppCard
+        v-for="curso in cursos"
+        @click.prevent.stop="$router.push({ name: 'ClassesHomeStudent', params: { id: $route.params.id, idCourse: curso.id } })"
+        :key="curso.id"
+        :cols="4"
+        :infos="curso" />
     </v-row>
   </v-container>
 </template>

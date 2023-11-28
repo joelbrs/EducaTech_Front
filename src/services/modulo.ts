@@ -8,6 +8,10 @@ export function getListarModulos(params: Object) {
     return ApiGet<any>(`${base}`, { params: params })
 }
 
+export function getListarModulosComAulas(idCurso: string) {
+  return ApiGet<any>(`${base}/aulas/${idCurso}`)
+}
+
 export function getListarModulosByIdCurso(idCurso: string) {
     return ApiGet<any>(`${base}/curso/${idCurso}`)
 }
