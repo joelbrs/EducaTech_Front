@@ -19,7 +19,7 @@
                      class="mr-5"
                      prepend-icon="mdi-check"
                      variant="outlined">
-                Finalizar Aula
+                Marcar como Concluída
               </v-btn>
               <v-btn
                 prepend-icon="mdi-download"
@@ -59,11 +59,12 @@
       </v-col>
     </v-row>
 
-    <div class="d-flex justify-end">
+    <div v-if="modulos.length > 0" class="d-flex justify-end">
       <v-btn
         prepend-icon="mdi-file-document-multiple-outline"
         color="green"
-        @click="emitirCertificado"
+        @click.prevent.stop="emitirCertificado"
+        :disabled="!todasAulasAssistidas"
       >
         Emitir Certificado
       </v-btn>
@@ -73,12 +74,11 @@
 
 <script setup lang="ts">
 import ExpansionPanel from "@/components/molecules/panels/ExpansionPanel.vue";
-import { onMounted, Ref, ref } from "vue";
+import {computed, onMounted, Ref, ref} from "vue";
 import {getListarModulosComAulas} from "@/services/modulo";
 import { useRoute } from "vue-router";
 import {getDetalharCurso, postEmitirCertificado} from "@/services/curso";
 import { CursoDTOOut } from "@/types/curso";
-import { AulaDTOOut } from "@/types/aula";
 import { ModuloDTOOut } from "@/types/modulo";
 import {putFinalizarAula} from "@/services/aula";
 
@@ -103,6 +103,17 @@ const $route = useRoute();
  *  }
  *]
  * */
+
+const todasAulasAssistidas = computed(() => {
+  for (const modulo of modulos.value) {
+    for (const aula of modulo.aulas) {
+      if (!aula.assistida) {
+        return false
+      }
+    }
+  }
+  return true
+})
 
 onMounted(() => consultarModulos());
 onMounted(() => consultarCurso());
@@ -183,8 +194,13 @@ const downloadMaterial = (modulo: any) => {
 };
 
 const downloadCertificado = (certificado: any) => {
+
+  if (certificado.arquivo?.includes(`data:application/pdf`)) {
+    certificado.arquivo = certificado.arquivo?.split("''")[0]?.split(",")[1]
+  }
+
   const byteCharacters = atob(
-    certificado.arquivo?.split("''")[0]?.split(",")[1]
+    certificado.arquivo
   );
   const byteNumbers = new Array(byteCharacters.length);
 
