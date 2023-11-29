@@ -1,5 +1,4 @@
-import {ApiDelete, ApiGet, ApiPost, ApiPut} from "@/utils/CustomAPI";
-import {CursoDTOIn, CursoDTOOut} from "@/types/curso";
+import {ApiDelete, ApiGet, ApiPost} from "@/utils/CustomAPI";
 import {ModuloDTOIn, ModuloDTOOut} from "@/types/modulo";
 
 const base: string = 'http://localhost:8080/modulos'
@@ -8,8 +7,8 @@ export function getListarModulos(params: Object) {
     return ApiGet<any>(`${base}`, { params: params })
 }
 
-export function getListarModulosComAulas(idCurso: string) {
-  return ApiGet<any>(`${base}/aulas/${idCurso}`)
+export function getListarModulosComAulas(idCurso: string, idUsuario: string) {
+  return ApiGet<any>(`${base}/aulas/${idCurso}/${idUsuario}`)
 }
 
 export function getListarModulosByIdCurso(idCurso: string) {

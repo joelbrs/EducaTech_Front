@@ -24,6 +24,10 @@ export function postCriarAula(params: AulaDTOIn) {
   return ApiPost<AulaDTOOut>(`${base}`, params)
 }
 
+export function putFinalizarAula(idAula: string, idUsuario: string) {
+  return ApiPut<AulaDTOOut>(`${base}/assistida/${idAula}/${idUsuario}`, {})
+}
+
 export function deleteAulaById(id: string) {
   return ApiDelete(`${base}/${id}`)
 }

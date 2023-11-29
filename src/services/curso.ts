@@ -15,6 +15,10 @@ export function postCriarCurso(params: CursoDTOIn) {
     return ApiPost<CursoDTOOut>(`${base}`, params)
 }
 
+export function postEmitirCertificado(params: Object) {
+  return ApiPost<any>(`${base}/emitir-certificado`, params)
+}
+
 export function deleteCursoById(id: string) {
     return ApiDelete(`${base}/${id}`)
 }

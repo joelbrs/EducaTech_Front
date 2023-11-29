@@ -14,7 +14,11 @@
             <p class="text-break">{{ aulaAtual.descricao }}</p>
 
             <div class="d-flex justify-center align-center mt-5">
-              <v-btn class="mr-5" prepend-icon="mdi-check" variant="outlined">
+              <v-btn @click="finalizarAula"
+                     :disabled="aulaAtual.assistida"
+                     class="mr-5"
+                     prepend-icon="mdi-check"
+                     variant="outlined">
                 Finalizar Aula
               </v-btn>
               <v-btn
@@ -49,9 +53,8 @@
           v-for="modulo in modulos"
           :key="modulo.id"
           @click.prevent.stop="selecionarAula($event.target.innerText)"
-          :texts="extrairAulas(modulo.aulas)"
           :title="modulo.titulo"
-          :value="modulo.id"
+          :items="modulo.aulas"
         />
       </v-col>
     </v-row>
@@ -59,8 +62,8 @@
     <div class="d-flex justify-end">
       <v-btn
         prepend-icon="mdi-file-document-multiple-outline"
-        variant="outlined"
         color="green"
+        @click="emitirCertificado"
       >
         Emitir Certificado
       </v-btn>
@@ -71,13 +74,13 @@
 <script setup lang="ts">
 import ExpansionPanel from "@/components/molecules/panels/ExpansionPanel.vue";
 import { onMounted, Ref, ref } from "vue";
-import { getListarModulosComAulas } from "@/services/modulo";
+import {getListarModulosComAulas} from "@/services/modulo";
 import { useRoute } from "vue-router";
-import { getDetalharCurso } from "@/services/curso";
+import {getDetalharCurso, postEmitirCertificado} from "@/services/curso";
 import { CursoDTOOut } from "@/types/curso";
 import { AulaDTOOut } from "@/types/aula";
 import { ModuloDTOOut } from "@/types/modulo";
-import { json } from "stream/consumers";
+import {putFinalizarAula} from "@/services/aula";
 
 const curso: Ref<CursoDTOOut> = ref({
   id: 0,
@@ -115,13 +118,32 @@ const consultarCurso = async () => {
 
 const consultarModulos = async () => {
   const { data, error } = await getListarModulosComAulas(
-    $route.params.idCourse as string
+    $route.params.idCourse as string, $route.params.id as string
   );
 
   if (error && !data) return console.error(error);
 
   modulos.value = data?.filter((modulo: any) => modulo.aulas.length !== 0);
 };
+
+const finalizarAula = async () => {
+  const { data, error } = await putFinalizarAula(aulaAtual.value.id, $route.params?.id as string)
+
+  if (error && !data) return console.error(error)
+
+  aulaAtual.value.assistida = true
+}
+
+const emitirCertificado = async () => {
+  const { data, error } = await postEmitirCertificado({
+    idCurso: +$route.params?.idCourse,
+    idUsuario: +$route.params?.id
+  })
+
+  if (error && !data) return console.log(error)
+
+  downloadCertificado(data)
+}
 
 const selecionarAula = (titulo: string) => {
   for (const modulo of modulos.value) {
@@ -160,9 +182,24 @@ const downloadMaterial = (modulo: any) => {
   link.click();
 };
 
-const extrairAulas = (aulas: AulaDTOOut[]) => {
-  return aulas?.map((aula: AulaDTOOut) => aula.titulo);
-};
+const downloadCertificado = (certificado: any) => {
+  const byteCharacters = atob(
+    certificado.arquivo?.split("''")[0]?.split(",")[1]
+  );
+  const byteNumbers = new Array(byteCharacters.length);
+
+  for (let i = 0; i < byteCharacters.length; i++) {
+    byteNumbers[i] = byteCharacters.charCodeAt(i);
+  }
+
+  const byteArray = new Uint8Array(byteNumbers);
+  const blob = new Blob([byteArray], { type: "application/pdf" });
+
+  const link = document.createElement("a");
+  link.href = window.URL.createObjectURL(blob);
+  link.download = certificado.nome;
+  link.click();
+}
 </script>
 
 <style scoped></style>

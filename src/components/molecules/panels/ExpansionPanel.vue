@@ -1,19 +1,21 @@
 <script setup lang="ts">
-import { Ref, ref } from "vue";
+import {computed, ref} from "vue";
 
 const props = defineProps<{
-  title: string;
-  texts: string[];
-  value: string;
+  items: any[];
+  title: string
 }>();
 
-const panel = ref(props.value);
+const panel = ref(props.title);
 
-const active: Ref<any> = ref({});
-
-const onClickOutside = (text: string) => {
-  (active as any)[text].value = !(active as any)[text].value;
-};
+const todosAssistidos = computed(() => {
+  for (const item of props.items) {
+    if (!item.assistida) {
+      return false
+    }
+  }
+  return true
+})
 </script>
 
 <template>
@@ -24,15 +26,20 @@ const onClickOutside = (text: string) => {
     theme="dark"
     variant="accordion"
   >
-    <v-expansion-panel :title="title" :value="value" rounded>
+    <v-expansion-panel :value="title" rounded>
+      <v-expansion-panel-title>
+        {{title}}
+        <template v-slot:actions="{ expanded }">
+          <v-icon :icon="!todosAssistidos ? 'mdi-menu-down' : 'mdi-check-circle'"></v-icon>
+        </template>
+      </v-expansion-panel-title>
       <v-expansion-panel-text
-        v-for="text in texts"
-        v-click-outside="onClickOutside"
+        v-for="item in items"
         class="mt-2 v-card--hover active"
-        :key="text"
-        @click="$emit(`click`, $event), (active[text] = true)"
+        :key="item.id"
+        @click="$emit(`click`, $event)"
       >
-        <v-icon class="mr-2">mdi-play-circle</v-icon>{{ text }}
+        <v-icon class="mr-2">{{ !item.assistida ? `mdi-play-circle` : `mdi-check` }}</v-icon>{{ item.titulo }}
       </v-expansion-panel-text>
     </v-expansion-panel>
   </v-expansion-panels>

@@ -101,7 +101,7 @@ const cadastrar = async () => {
         color="blue"
         size="large"
         variant="tonal"
-        @click="cadastrar"
+        @click.prevent.stop="cadastrar"
     />
   </v-container>
 </template>
