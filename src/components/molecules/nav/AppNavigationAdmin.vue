@@ -1,52 +1,67 @@
 <script setup lang="ts">
-import {computed} from "vue";
+import { computed } from "vue";
 import { useRouter, useRoute } from "vue-router";
 
 const props = defineProps<{
-  value: boolean
-}>()
+  value: boolean;
+}>();
 
 const emit = defineEmits<{
-  (e: "input", value: boolean): void
-}>()
+  (e: "input", value: boolean): void;
+}>();
 
 const navigator = computed({
   get() {
-    return props.value
+    return props.value;
   },
 
   set(newValue: boolean) {
-    emit("input", newValue)
-  }
-})
+    emit("input", newValue);
+  },
+});
 
-const $router = useRouter(), $route = useRoute()
-
+const $router = useRouter(),
+  $route = useRoute();
 </script>
 
 <template>
-  <v-navigation-drawer
-    v-model="navigator"
-  >
+  <v-navigation-drawer v-model="navigator">
     <v-list density="compact" nav>
       <v-list-item
-        @click="$router.push({ name: 'HomeCoursesAdmin', params: { id: $route.params?.id } })"
+        @click.prevent.stop="
+          $router.push({
+            name: 'HomeCoursesAdmin',
+            params: { id: $route.params?.id },
+          })
+        "
         prepend-icon="mdi-arrow-right-bottom"
         title="Manter Cursos"
-        value="cursos"/>
+        value="cursos"
+      />
 
       <v-list-item
-        @click="$router.push({ name: 'HomeModulesAdmin', params: { id: $route.params?.id }})"
+        @click.prevent.stop="
+          $router.push({
+            name: 'HomeModulesAdmin',
+            params: { id: $route.params?.id },
+          })
+        "
         prepend-icon="mdi-arrow-right-bottom"
         title="Manter Módulos"
-        value="shared"/>
+        value="shared"
+      />
 
       <v-list-item
-        @click="$router.push({ name: 'HomeClassesAdmin', params: { id: $route.params?.id }})"
+        @click.prevent.stop="
+          $router.push({
+            name: 'HomeClassesAdmin',
+            params: { id: $route.params?.id },
+          })
+        "
         prepend-icon="mdi-arrow-right-bottom"
         title="Manter Aulas"
-        value="shared"/>
-
+        value="shared"
+      />
     </v-list>
   </v-navigation-drawer>
 </template>

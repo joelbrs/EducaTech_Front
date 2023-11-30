@@ -11,7 +11,7 @@ defineProps<{
 </script>
 
 <template>
-  <v-col :cols="cols" :md="cols" sm="12">
+  <v-col class="d-flex flex-column" :cols="cols" :md="cols" sm="12">
     <v-btn
       v-bind="$attrs"
       :block="block"

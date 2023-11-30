@@ -1,16 +1,16 @@
 <script setup lang="ts">
-import {ref} from "vue";
+import { ref } from "vue";
 defineProps<{
-  label?: string,
-  prefix?: string
-  rules?: any[],
-  suffix?: string,
-  type?: string,
-  modelValue?: string,
-  cols?: number,
-}>()
+  label?: string;
+  prefix?: string;
+  rules?: any[];
+  suffix?: string;
+  type?: string;
+  modelValue?: string;
+  cols?: number;
+}>();
 
-const visible = ref(false)
+const visible = ref(false);
 </script>
 
 <template>
@@ -34,6 +34,4 @@ const visible = ref(false)
   </v-col>
 </template>
 
-<style scoped>
-
-</style>
+<style scoped></style>

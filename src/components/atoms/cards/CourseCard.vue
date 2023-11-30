@@ -1,8 +1,21 @@
 <script setup lang="ts">
-defineProps<{
-  infos: any,
-  cols?: number
-}>()
+import { computed } from "vue";
+
+const props = defineProps<{
+  infos: any;
+  cols?: number;
+}>();
+
+const imagem = computed(() => {
+  if (
+    props.infos.imagem?.includes(`data:image/jpeg;base64,`) ||
+    props.infos.imagem?.includes("data:image/png;base64,")
+  ) {
+    return props.infos.imagem;
+  }
+
+  return `data:image/jpeg;base64,${props.infos.imagem}`;
+});
 </script>
 
 <template>
@@ -12,7 +25,7 @@ defineProps<{
       max-width="800"
       rounded
       min-height="250"
-      :prepend-avatar="infos.imagem"
+      :prepend-avatar="imagem"
       variant="outlined"
       href="/vasco"
     >
@@ -26,17 +39,11 @@ defineProps<{
       </v-card-item>
 
       <v-card-actions class="ml-2">
-        <v-btn rounded>
-          {{ infos.qtdModulos }} Módulos
-        </v-btn>
-        <v-btn rounded>
-          {{ infos.qtdAulas }} Aulas
-        </v-btn>
+        <v-btn rounded> {{ infos.qtdModulos }} Módulos </v-btn>
+        <v-btn rounded> {{ infos.qtdAulas }} Aulas </v-btn>
       </v-card-actions>
     </v-card>
   </v-col>
 </template>
 
-<style scoped>
-
-</style>
+<style scoped></style>

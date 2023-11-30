@@ -9,6 +9,7 @@ const navigator = ref(true)
   <v-app-bar border color="#27272A" scroll-behavior="elevate">
     <v-app-bar-nav-icon icon="mdi-menu" @click="navigator = !navigator"/>
     <v-app-bar-title>EducaTech</v-app-bar-title>
+    <v-app-bar-nav-icon icon="mdi-block-helper" title="Deslogar" @click="$router.push({ name: 'Login' })"/>
   </v-app-bar>
 
   <AppNavigationAdmin :value="navigator"/>

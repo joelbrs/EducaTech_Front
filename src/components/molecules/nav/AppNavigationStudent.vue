@@ -1,45 +1,52 @@
 <script setup lang="ts">
-import {computed} from "vue";
+import { computed } from "vue";
 import { useRouter, useRoute } from "vue-router";
 
 const props = defineProps<{
-  value: boolean
-}>()
+  value: boolean;
+}>();
 
 const emit = defineEmits<{
-  (e: "input", value: boolean): void
-}>()
+  (e: "input", value: boolean): void;
+}>();
 
 const navigator = computed({
   get() {
-    return props.value
+    return props.value;
   },
 
   set(newValue: boolean) {
-    emit("input", newValue)
-  }
-})
-
-const $router = useRouter(), $route = useRoute()
-
+    emit("input", newValue);
+  },
+});
 </script>
 
 <template>
-  <v-navigation-drawer
-    v-model="navigator"
-  >
+  <v-navigation-drawer v-model="navigator">
     <v-list density="compact" nav>
       <v-list-item
-        @click="$router.push({ name: 'HomeStudent', params: { id: $route.params?.id } })"
+        @click.prevent.stop="
+          $router.push({
+            name: 'HomeStudent',
+            params: { id: $route.params?.id },
+          })
+        "
         prepend-icon="mdi-book-open"
         title="Cursos"
-        value="cursos"/>
+        value="cursos"
+      />
 
       <v-list-item
-        @click="$router.push({ name: 'AccountStudent', params: { id: $route.params?.id }})"
+        @click.prevent.stop="
+          $router.push({
+            name: 'AccountStudent',
+            params: { id: $route.params?.id },
+          })
+        "
         prepend-icon="mdi-account"
         title="Minha Conta"
-        value="shared"/>
+        value="shared"
+      />
     </v-list>
   </v-navigation-drawer>
 </template>

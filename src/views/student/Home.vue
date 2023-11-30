@@ -1,28 +1,36 @@
 <script setup lang="ts">
-import {ref, watch, onMounted, Ref} from "vue";
+import { ref, watch, onMounted, Ref } from "vue";
 import AppCard from "@/components/atoms/cards/CourseCard.vue";
-import {getListarCursos} from "@/services/curso";
+import { getListarCursos } from "@/services/curso";
 import InputText from "@/components/atoms/inputs/InputText.vue";
-import {CursoDTOOut} from "@/types/curso";
+import { CursoDTOOut } from "@/types/curso";
+import AppLoading from "@/components/atoms/loading/AppLoading.vue";
 
-const cursos: Ref<CursoDTOOut[]> = ref([])
+const cursos: Ref<CursoDTOOut[]> = ref([]);
 const filtro = ref({
-  titulo: ""
-})
+  titulo: "",
+});
+
+const loading = ref(false);
 
 const consultarCursos = async () => {
-  const { data, error } = await getListarCursos(filtro.value)
+  const { data, error } = await getListarCursos(filtro.value);
 
-  if (error && !data) console.error(error)
+  if (error && !data) console.error(error);
 
-  cursos.value = data
-}
+  cursos.value = data;
+};
 
-watch(() => filtro.value.titulo, () => {
-  consultarCursos()
-})
+watch(
+  () => filtro.value.titulo,
+  () => {
+    consultarCursos();
+  }
+);
 
-onMounted(() => consultarCursos())
+loading.value = true;
+consultarCursos();
+loading.value = false;
 </script>
 
 <template>
@@ -32,10 +40,10 @@ onMounted(() => consultarCursos())
       <v-spacer />
       <v-col cols="3">
         <InputText
-            v-model="filtro.titulo"
-            label="Pesquisar"
-            icon="mdi-magnify"
-            @click="consultarCursos"
+          v-model="filtro.titulo"
+          label="Pesquisar"
+          icon="mdi-magnify"
+          @click="consultarCursos"
         />
       </v-col>
     </v-row>
@@ -43,14 +51,20 @@ onMounted(() => consultarCursos())
     <v-row align="center" justify="center">
       <AppCard
         v-for="curso in cursos"
-        @click.prevent.stop="$router.push({ name: 'ClassesHomeStudent', params: { id: $route.params.id, idCourse: curso.id } })"
+        @click.prevent.stop="
+          $router.push({
+            name: 'ClassesHomeStudent',
+            params: { id: $route.params.id, idCourse: curso.id },
+          })
+        "
         :key="curso.id"
         :cols="4"
-        :infos="curso" />
+        :infos="curso"
+      />
     </v-row>
+
+    <AppLoading v-if="loading" />
   </v-container>
 </template>
 
-<style scoped>
-
-</style>
+<style scoped></style>

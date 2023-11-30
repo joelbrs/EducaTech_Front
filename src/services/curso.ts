@@ -15,6 +15,10 @@ export function postCriarCurso(params: CursoDTOIn) {
     return ApiPost<CursoDTOOut>(`${base}`, params)
 }
 
+export function putEditarCurso(id: string, params: CursoDTOIn) {
+    return ApiPut<CursoDTOOut>(`${base}/${id}`, params)
+}
+
 export function postEmitirCertificado(params: Object) {
   return ApiPost<any>(`${base}/emitir-certificado`, params)
 }

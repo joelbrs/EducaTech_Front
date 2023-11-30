@@ -16,7 +16,7 @@ const form = ref<HTMLFormElement>()
 const item = ref({
   titulo: "",
   descricao: "",
-  curso: "",
+  curso: null,
   ordem: "",
   material: {
     arquivo: "",
@@ -68,7 +68,7 @@ const consultarOrdem = async () => {
 const limpar = () => {
   item.value = {
     titulo: "",
-    curso: "",
+    curso: null,
     ordem: "",
     descricao: "",
     material: {
@@ -97,16 +97,21 @@ const limpar = () => {
             suffix="*"
             :rules="[Validations.RequiredField]"
         />
-        <SelectField
-            v-model="item.curso"
-            label="Curso"
-            cols="3"
-            item-title="titulo"
-            item-value="id"
-            :items="cursos"
-            suffix="*"
-            :rules="[Validations.RequiredField]"
-        />
+        <v-col cols="3">
+          <v-select
+              v-model="item.curso"
+              label="Curso"
+              :items="cursos"
+              item-value="id"
+              item-title="titulo"
+              placeholder="Curso"
+              :rules="[Validations.RequiredField]"
+              suffix="*"
+              variant="outlined"
+              density="compact"
+              clearable
+          />
+        </v-col>
         <v-col cols="2">
           <v-text-field
               v-model="item.ordem"
@@ -127,6 +132,7 @@ const limpar = () => {
         <InputFile
             v-model="item.material"
             label="Material"
+            textBtn="Anexar Material"
             suffix="*"
             :rules="[Validations.RequiredField]"
         />

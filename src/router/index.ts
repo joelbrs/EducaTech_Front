@@ -53,6 +53,11 @@ const routes = [
         component: () => import('@/views/admin/courses/Cadastrar.vue'),
       },
       {
+        path: '/admin/courses/editar?id=:id',
+        name: 'EditarCoursesAdmin',
+        component: () => import('@/views/admin/courses/Editar.vue'),
+      },
+      {
         path: '/admin/courses/detalhar?id=:id',
         name: 'DetalharCoursesAdmin',
         component: () => import('@/views/admin/courses/Detalhar.vue'),
@@ -68,6 +73,11 @@ const routes = [
         component: () => import('@/views/admin/modules/Cadastrar.vue'),
       },
       {
+        path: '/admin/modules/editar?id=:id',
+        name: 'EditarModulesAdmin',
+        component: () => import('@/views/admin/modules/Editar.vue'),
+      },
+      {
         path: '/admin/modules/detalhar?id=:id',
         name: 'DetalharModulesAdmin',
         component: () => import('@/views/admin/modules/Detalhar.vue'),
@@ -81,6 +91,16 @@ const routes = [
         path: '/admin/classes/cadastrar',
         name: 'CadastrarClassesAdmin',
         component: () => import('@/views/admin/classes/Cadastrar.vue'),
+      },
+      {
+        path: '/admin/classes/detalhar?idCourse=:idCourse&idModule=:idModule&ordem=:ordem',
+        name: 'DetalharClassesAdmin',
+        component: () => import('@/views/admin/classes/Detalhar.vue'),
+      },
+      {
+        path: '/admin/classes/editar?id=:id&idCourse=:idCourse&idModule=:idModule&ordem=:ordem',
+        name: 'EditarClassesAdmin',
+        component: () => import('@/views/admin/classes/Editar.vue'),
       },
     ],
   },

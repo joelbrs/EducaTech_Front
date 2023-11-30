@@ -28,6 +28,10 @@ export function putFinalizarAula(idAula: string, idUsuario: string) {
   return ApiPut<AulaDTOOut>(`${base}/assistida/${idAula}/${idUsuario}`, {})
 }
 
+export function putEditarAula(id: string, params: Object) {
+  return ApiPut<AulaDTOOut>(`${base}/${id}`, params)
+}
+
 export function deleteAulaById(id: string) {
   return ApiDelete(`${base}/${id}`)
 }

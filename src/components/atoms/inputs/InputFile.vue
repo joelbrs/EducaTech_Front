@@ -4,8 +4,15 @@ import Btn from "@/components/atoms/btns/Btn.vue";
 
 defineProps({
   cols: {
-    default: 10,
+    default: 10 as string | number,
+    required: false
   },
+  label: {
+    default: "Descrição do Arquivo"
+  },
+  textBtn: {
+    default: "Anexar Arquivo"
+  }
 });
 
 const $emits = defineEmits<{
@@ -50,15 +57,14 @@ const createBase64Image = (fileObject: File) => {
 </script>
 
 <template>
-  <div class="d-flex">
     <v-row class="mt-2" dense>
-      <v-col :cols="cols" md="10" sm="12">
+      <v-col :cols="cols" :md="cols" :sm="12">
         <v-text-field
           v-model="arquivo.nome"
           density="compact"
           variant="outlined"
-          label="Descrição do Arquivo"
-          placeholder="Descrição do Arquivo"
+          :label="label"
+          :placeholder="label"
           clearable
           @click:clear="limpar"
         />
@@ -66,12 +72,11 @@ const createBase64Image = (fileObject: File) => {
       <Btn
         color="primary"
         icon="mdi-paperclip"
-        text="Anexar Arquivo"
+        :text="textBtn"
         cols="2"
         @click.prevent.stop="uploader?.click()"
       />
     </v-row>
-  </div>
   <input
     ref="uploader"
     @change="handleImage"
